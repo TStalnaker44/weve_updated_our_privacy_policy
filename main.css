@@ -1,0 +1,26 @@
+
+#middle{
+    display:flex;
+}
+
+#documentReader{
+    width: 40%;
+    color: black;
+    text-align: center;
+    border-width: 4px;
+    border-style: double;
+    padding: 2em;
+    aspect-ratio: 8.5/11;
+    overflow: scroll;
+    display: inline-block;
+    
+}
+
+#eventsBar{
+    width: 20%;
+    border-width: 4px;
+    border-style: double;
+    background-color: blue;
+    display: inline-block;
+    
+}
