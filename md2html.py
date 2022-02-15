@@ -12,4 +12,16 @@ markdown module by typing the following command into your terminal:
 
 pip install markdown
 
+https://www.digitalocean.com/community/tutorials/how-to-use-python-markdown-to-convert-markdown-text-to-html
+
 """
+
+import markdown
+
+fileName = "facebook_test"
+with open(fileName + ".md", encoding="utf-8") as file:
+    contents = file.read()
+    html = markdown.markdown(contents)
+with open(fileName + ".html", "w", encoding="utf-8") as file:
+    file.write(html)
+    file.flush()
