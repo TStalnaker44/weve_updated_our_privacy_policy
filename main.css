@@ -1,15 +1,36 @@
 
+h1{
+    text-align: center;
+}
+
+#visualization{
+    margin: auto;
+    width: 50%;
+    border-width: 4px;
+    border-style: double;
+}
+
+#header, #timeLine{
+    width: 100%;
+    background-color: red;
+    text-align: center;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    /*border-width: 4px;
+    border-style: double;*/
+}
+
 #middle{
     display:flex;
 }
 
 #documentReader{
-    width: 40%;
+    width: 70%;
     color: black;
     text-align: center;
-    border-width: 4px;
-    border-style: double;
-    padding: 2em;
+    /*border-width: 4px;
+    border-style: double;*/
+    padding: 2%;
     aspect-ratio: 8.5/11;
     overflow: scroll;
     display: inline-block;
@@ -17,9 +38,9 @@
 }
 
 #eventsBar{
-    width: 20%;
-    border-width: 4px;
-    border-style: double;
+    width: 30%;
+    /*border-width: 4px;
+    border-style: double;*/
     background-color: blue;
     display: inline-block;
     
