@@ -36,8 +36,17 @@ function app() {
 			.attr('cx', d => getYFromDate(d))
 			.attr('cy', 10)
 
+		d3.select('svg')
+			.selectAll('line')
+			.data(data)
+			.enter()
+			.append('line')
+			.attr("x1", 0)
+			.attr("y1", 10)
+			.attr("x2", 2000)
+			.attr("y2", 10)
 	})
-	console.log("Cool beans!!!");
+	
 }
 
 export {
