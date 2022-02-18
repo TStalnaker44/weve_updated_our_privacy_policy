@@ -11,16 +11,30 @@ function getURL(d){
 	return d.URLs;
 }
 function addManyURLs(){
-  d3.csv("testURLs.csv").then(data=>{
-	  console.log(data);
-	  d3.select('body')
-			.selectAll('div')
-			.data(data)
-			.enter()
+  d3.dsv(" ","testURLs.csv").then(data=>{
+	//var URLarray = data;
+	//console.log(URLarray);
+	console.log(data.URLs);
+	//console.log(String(URLarray[1].URLs));
+	data.forEach(element => {
+		d3.select('#eventsBar')
+			
 			.append('div')
-			.text(function(d){
-				return d;
-			});
+			.text(element.URLs)
+	});
+	console.log("adding urls");
+	//   d3.select('#eventsBar')
+	// 		.style("background", "green")
+	// 		.data(data)
+	// 			.enter()
+	// 			.append('div')
+	// 			.text(function(d){
+	// 				return d;
+	// 			  })
+		d3.select('#eventsBar')
+			
+			.append('div')
+			.text("hello")
   }
 	)
 
