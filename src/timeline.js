@@ -23,7 +23,7 @@ function getYFromDate(d){
 }
 
 function app() {
-
+	
 	d3.dsv(' ', 'facebook_timestamps.csv').then(data => {
 		
 		d3.select('svg')
@@ -32,7 +32,7 @@ function app() {
 			.enter()
 			.append('circle')
 			.attr('r', 5)
-			.attr('fill', 'green')
+			.attr('fill', 'purple')
 			.attr('cx', d => getYFromDate(d))
 			.attr('cy', 10)
 
