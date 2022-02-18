@@ -14,24 +14,10 @@ function loadPolicy(file){
     return;
 }
 
-import {
-  app
-} from "./timeline.js"
+import {app} from "./timeline.js"
+import {addEvent, getEvents} from "./eventsbar.js"
 
 loadPolicy("facebook_test.html");
-app()
-// d3.csv("facebook_timestamps.csv").then(
-//   data => {
-//     d3.select('svg')
-//     .selectAll('circle')
-//     .data(data)
-//     .enter()
-//     .append('circle')
-//     .attr('r', 5)
-//     .attr('fill', 'green')
-//     .attr('cx', 100)
-//     .attr('cy', 100)
-
-//     console.log("Hello");
-//   }
-// );
+app();
+let e = {link: "https://www.google.com", image: "images/event_image.jpg", desc: "Hi there partner"}
+getEvents();
