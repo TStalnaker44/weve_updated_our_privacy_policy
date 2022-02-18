@@ -110,3 +110,10 @@ h1{
     width: 25%;
     text-align: center;
 }
+
+#eventHover{
+    background: #fff;
+    border: 1px solid #000;
+    position: absolute;
+    display: none;
+}

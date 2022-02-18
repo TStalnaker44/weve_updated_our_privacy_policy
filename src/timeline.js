@@ -35,8 +35,23 @@ function app() {
 			.attr('fill', 'green')
 			.attr('cx', d => getYFromDate(d))
 			.attr('cy', 10)
+			.on('mouseover', showEventDate)
+			.on('mouseout', hideEventDate)
 	})
 	
+}
+
+function showEventDate(ev, d){
+	let hover = document.getElementById('eventHover')
+	hover.style.display = 'block';
+	hover.style.left = ev.pageX + 2 + "px";
+	hover.style.top = ev.pageY + 2 + "px";
+	let date = d.Month + " " + d.Day + ", " + d.Year
+	hover.innerHTML = "<div>" + date + "</div>";
+}
+
+function hideEventDate(){
+	document.getElementById("eventHover").style.display = "none";
 }
 
 export {
