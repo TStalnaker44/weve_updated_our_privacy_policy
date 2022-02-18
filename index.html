@@ -7,7 +7,13 @@
 <body>
 
     <h1 id="title">Privacy Policy Visualization</h1>
-    <!--<svg width="100%" id="viz"></svg>-->
+    <p id="disclaimer">Note: This is by no means the final styling for our tool.  The different sections have
+        been colored so that it is easy to visually differentiate them during development.  The
+        timeline below has been generated from actual Facebook policy data from GitHub.  Currently,
+        there is no way for the user to toggle between policies, so the one displayed is the most 
+        recent.  The event in the events panel is also only for mock up purposes.  In the near future,
+        the events pane will contain more accurate and informative events.
+    </p>
     <div id="visualization">
         <div id="header">
                 Hello World
@@ -17,8 +23,14 @@
         
         </div>
         <div id="eventsBar">
-            <img src="event_image.jpg" alt="Facebook CEO Testifies Before Congress"/>
-            <p style="text-align: center;">Facebook CEO Testifies Before US Congress</p>
+            <div class="event">
+                <img class="eventImg" src="event_image.jpg" alt="Facebook CEO Testifies Before Congress"/>
+                <p class="eventDesc">Facebook CEO Testifies Before US Congress</p>
+            </div>
+            <div class="event">
+                <img class="eventImg" src="event_image_2.jfif" alt="Cambridge Analytica Scandal"/>
+                <p class="eventDesc">Cambridge Analytica Scandal</p>
+            </div>
         </div>
         </div>
         <div id="timeLine">
