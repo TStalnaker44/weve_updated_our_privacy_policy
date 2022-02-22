@@ -127,11 +127,17 @@ h1{
     float: right;
     width: 25%;
     text-align: center;
+    color: darkslategrey;
+    border-color:rgba(0, 0, 0, 0.2);
 }
 
 #eventHover{
     background: #fff;
-    border: 1px solid #000;
+    border: 1px solid rgba(0,0,0,.125);
+    color: darkslategrey;
     position: absolute;
     display: none;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 5px;
 }
