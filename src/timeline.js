@@ -32,12 +32,14 @@ function app() {
 			.enter()
 			.append('circle')
 			.attr('r', 5)
-			.attr('fill', 'green')
+			.attr('fill', '#0e59bb')
 			.attr('cx', d => getYFromDate(d))
 			.attr('cy', 10)
 			.on('mouseover', showEventDate)
 			.on('mouseout', hideEventDate)
 	})
+
+	console.log("Weee")
 	
 }
 

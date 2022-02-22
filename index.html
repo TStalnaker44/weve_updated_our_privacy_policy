@@ -10,13 +10,12 @@
     <div id="eventHover"></div>
 
     <h1 id="title">Privacy Policy Visualization</h1>
-    <p id="disclaimer">Note: This is by no means the final styling for our tool.  The different sections have
-        been colored so that it is easy to visually differentiate them during development.  The
-        timeline below has been generated from actual Facebook policy data from GitHub.  Currently,
-        there is no way for the user to toggle between policies, so the one displayed is the most 
-        recent.  The event in the events panel is also only for mock up purposes.  In the near future,
-        the events pane will contain more accurate and informative events.
-    </p>
+    <div class="disclaimer alert alert-secondary" role="alert">
+        <p>The visual styling of this tool is still in flux and its functionality is still being developed.  
+            Being a work in progress, this tool will continue to undergo changes.
+        </p>
+    </div>
+    
     <div id="visualization">
         <div class="card-header" style="text-align: center;">
             <select name="versions" id="versionSelect">
@@ -32,7 +31,7 @@
         </div>
         <div id="eventsBar">
 
-            <div class="card">
+            <!--<div class="card">
                 <a class="eventLink" href="http://www.google.com">
                 <img class="card-img-top" src="./images/event_image.jpg" alt="Card image cap">
                 <div class="eventDescNew card-body">
@@ -41,7 +40,7 @@
                     <p class="date-text card-subtitle mb-2 text-muted">April 10, 2018</p>
                 </div>
                 </a>
-            </div>
+            </div>-->
             
         </div>
         </div>

@@ -11,13 +11,12 @@ h1{
 
 #timeLine{
     width: 100%;
-    background-color: red;
+    background-color: rgba(0,0,0,.06);
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
     text-align: center;
-    padding-top: 2em;
-    padding-bottom: 2em;
-    height: 1em;
-    /*border-width: 4px;
-    border-style: double;*/
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 40px;
 }
 
 #middle{
@@ -117,8 +116,11 @@ h1{
     text-decoration: none;
 }
 
-#disclaimer{
+.disclaimer{
     text-align: center;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #versionSelect{
