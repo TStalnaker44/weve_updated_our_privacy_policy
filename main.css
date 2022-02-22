@@ -51,12 +51,44 @@ h1{
     
 }
 
+.card{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 75%;
+    width: 90%;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.eventDescNew{
+    color: darkslategray;
+    padding: 5px;
+}
+
+.card-title{
+    margin-bottom: 5px;
+}
+
+.card-text{
+    margin-bottom: 10px;
+}
+
+.date-text{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 #eventsBar{
     width: 30%;
     border-width: 2px;
     border-style: solid none solid solid;
     border-color: black;
-    background-color: blue;
+    background-color: lightgrey;
     display: inline-block;
 }
 
