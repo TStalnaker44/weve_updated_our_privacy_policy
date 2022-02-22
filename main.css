@@ -20,7 +20,7 @@ h1{
     background-color: red;
     text-align: center;
     padding-bottom: 2em;
-    height: 1em;
+    /*height: 1em;*/
 }
 
 #timeLine{
