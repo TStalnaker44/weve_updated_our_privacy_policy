@@ -29,9 +29,8 @@ async function getCommits(){
 }
 
 import { Octokit } from "@octokit/rest";
-import {
-  app
-} from "./timeline.js"
+import {app} from "./timeline.js"
+import {addEvent, getEvents} from "./eventsbar.js"
 
 const octokit = new Octokit({
   userAgent: 'wuopp-viewer v1.0.0'
@@ -142,3 +141,7 @@ app()
 //     console.log("Hello");
 //   }
 // );
+
+let e = {link: "https://www.google.com", image: "images/event_image.jpg", desc: "Hi there partner"}
+getEvents();
+

@@ -2,20 +2,22 @@
 <html>
 <head>
     <title>Privacy Policy Visualization</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
+    <div id="eventHover"></div>
+
     <h1 id="title">Privacy Policy Visualization</h1>
-    <p id="disclaimer">Note: This is by no means the final styling for our tool.  The different sections have
-        been colored so that it is easy to visually differentiate them during development.  The
-        timeline below has been generated from actual Facebook policy data from GitHub.  Currently,
-        there is no way for the user to toggle between policies, so the one displayed is the most 
-        recent.  The event in the events panel is also only for mock up purposes.  In the near future,
-        the events pane will contain more accurate and informative events.
-    </p>
+    <div class="disclaimer alert alert-secondary" role="alert">
+        <p>The visual styling of this tool is still in flux and its functionality is still being developed.  
+            Being a work in progress, this tool will continue to undergo changes.
+        </p>
+    </div>
+    
     <div id="visualization">
-        <div id="header">
+        <div class="card-header" style="text-align: center;">
             <select name="versions" id="versionSelect">
                 <option value="Version1">Version 1</option>
                 <option value="Version2">Version 2</option>
@@ -27,21 +29,7 @@
         <div id="documentReader">
         
         </div>
-        <div id="eventsBar">
-            
-            <div class="event">
-                <a href="https://www.google.com" class="eventLink">
-                <img class="eventImg" src="images/event_image.jpg" alt="Facebook CEO Testifies Before Congress"/>
-                <p class="eventDesc">Facebook CEO Testifies Before US Congress</p>
-                </a>
-            </div>
-            
-            <div class="event">
-                <a href="https://www.amazon.com" class="eventLink">
-                <img class="eventImg" src="images/event_image_2.jfif" alt="Cambridge Analytica Scandal"/>
-                <p class="eventDesc">Cambridge Analytica Scandal</p>
-                </a>
-            </div>
+        <div id="eventsBar">            
         </div>
         </div>
         <div id="timeLine">
