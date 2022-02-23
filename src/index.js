@@ -19,5 +19,4 @@ import {addEvent, getEvents} from "./eventsbar.js"
 
 loadPolicy("facebook_test.html");
 app();
-let e = {link: "https://www.google.com", image: "images/event_image.jpg", desc: "Hi there partner"}
 getEvents();
