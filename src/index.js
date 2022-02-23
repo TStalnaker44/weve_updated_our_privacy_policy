@@ -49,7 +49,8 @@ text.then(console.log(text));
 
 //adapted from https://codelounge.dev/getting-started-with-the-githubs-rest-api
 
-const owner = 'citp'
+const owner = 'nwintersgill'
+//const owner = 'citp'
 const repo = 'privacy-policy-historical'
 const filepath = 'f/fa/fac/facebook.com.md';
 
@@ -79,41 +80,52 @@ const getFileContent = async () => {
       repo: repo,
       path: filepath
   });
-  console.log(data);
-  console.log('encoded:');
-  let encoded = data.content;
-  console.log(encoded);
-  console.log('decoded:');
-  let decoded = atob(encoded); //TODO: replace with up-to-date method
-  console.log(decoded);
-  
-}
-
-const getFileCommits = async () => {
-  const { data } = await octokit.rest.repos.listCommits({
-      owner: owner,
-      repo: repo,
-      path: filepath
-  });
-  console.log(data);
+  //console.log(data);
   //console.log('encoded:');
-  //let encoded = data.content;
+  let encoded = data.content;
   //console.log(encoded);
   //console.log('decoded:');
-  //let decoded = atob(encoded);
+  let decoded = atob(encoded); //TODO: replace with up-to-date method
   //console.log(decoded);
-  
+  return decoded;
 }
 
-getFileContent();
-getFileCommits();
-console.log('new 6');
+const printFileContent = async () => {
+  let text = await getFileContent();
+  console.log(text);
+}
+
+const setFileContent = async () => {
+  let elmnt = document.getElementById("documentReader");
+  let text = await getFileContent();
+  elmnt.innerHTML = text;
+}
+
+const getCommitDates = async () => {
+  const { data } = await octokit.rest.repos.listCommits({
+    owner: owner,
+    repo: repo,
+    path: filepath
+  });
+  console.log(data);
+  for (let i in data)
+  {
+    console.log(data[i].commit.author.date);
+  }
+}
+
+//getFileContent();
+//getFileCommits();
+//printFileContent();
+setFileContent();
+getCommitDates();
+console.log('new 10');
 
 //getCommits();
 //console.log(text);
 
 
-loadPolicy("facebook_test.html");
+//loadPolicy("facebook_test.html");
 app()
 // d3.csv("facebook_timestamps.csv").then(
 //   data => {
