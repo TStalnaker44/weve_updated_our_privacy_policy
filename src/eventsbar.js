@@ -16,6 +16,7 @@ function addEventToSideBar(event){
   let link = document.createElement("a");
   link.classList.add("eventLink");
   link.setAttribute("href", event.link);
+  link.setAttribute("target", "_blank");
 
   let img = document.createElement("img");
   img.classList.add("card-img-top");
