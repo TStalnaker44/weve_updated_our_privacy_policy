@@ -24,6 +24,8 @@ function getYFromDate(d){
 function app() {
 
 	d3.dsv(' ', 'facebook_timestamps.csv').then(data => {
+
+		addSelections(data);
 		
 		d3.select('svg')
 			.selectAll('policy_circle')
@@ -50,6 +52,18 @@ function showEventDate(ev, d){
 
 function hideEventDate(){
 	document.getElementById("eventHover").style.display = "none";
+}
+
+function addSelections(data){
+	
+	let selector = document.getElementById('versionSelect');
+
+	data.forEach(el => {
+		let option = document.createElement("option");
+		option.setAttribute("value", "temp");
+		option.innerHTML = el.Month + " " + el.Day + ", " + el.Year;
+		selector.appendChild(option);
+	});
 }
 
 export {
