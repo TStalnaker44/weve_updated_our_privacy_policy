@@ -58,11 +58,13 @@ function addSelections(data){
 	
 	let selector = document.getElementById('versionSelect');
 
+	let i = 0;
 	data.forEach(el => {
 		let option = document.createElement("option");
-		option.setAttribute("value", "temp");
+		option.setAttribute("value", i); //This can eventually be the commit id
 		option.innerHTML = el.Month + " " + el.Day + ", " + el.Year;
 		selector.appendChild(option);
+		i += 1;
 	});
 }
 

@@ -14,11 +14,18 @@ function loadPolicy(file){
     return;
 }
 
-import {app} from "./timeline.js"
-import {addEvent, getEvents} from "./eventsbar.js"
-import {main} from "./policyselector"
+function main(){
+    let selector = document.getElementById("versionSelect");
+    selector.addEventListener("change", function() {
+        if(Number(selector.value) % 2 == 0){
+            loadPolicy("facebook_test.html");
+        }
+        else {
+            loadPolicy("facebook_2.html");
+        }
+    });
+}
 
-loadPolicy("facebook_test.html");
-app();
-getEvents();
-main();
+export{
+    main
+}
