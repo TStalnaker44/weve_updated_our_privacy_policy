@@ -50,6 +50,7 @@ function getEvents(){
 		let temp = data;
 		data.forEach(element => {
 			addEvent(element);
+      console.log(element);
 		});
 	});
 }
