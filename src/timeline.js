@@ -37,10 +37,7 @@ function app() {
 			.attr('cy', 10)
 			.on('mouseover', showEventDate)
 			.on('mouseout', hideEventDate)
-	})
-
-	console.log("Weee")
-	
+	})	
 }
 
 function showEventDate(ev, d){

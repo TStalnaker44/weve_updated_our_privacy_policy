@@ -5,7 +5,7 @@ h1{
 
 #visualization{
     margin: auto;
-    width: 50%;
+    width: 60%;
     border: 1px solid rgba(0,0,0,.125);
 }
 
@@ -24,13 +24,12 @@ h1{
 }
 
 #documentReader{
-    width: 70%;
+    width: 75%;
     color: black;
     text-align: center;
-    /*border-width: 4px;
-    border-style: double;*/
     padding: 2%;
-    aspect-ratio: 8.5/11;
+    /*aspect-ratio: 8.5/11;*/
+    aspect-ratio: 8.5/7;
     overflow-y: scroll;
     display: inline-block;
     
@@ -69,10 +68,12 @@ h1{
 }
 
 #eventsBar{
-    width: 30%;
+    width: 25%;
     border: 1px solid rgba(0,0,0,.125);
     background-color: rgba(0,0,0,.1);
     display: inline-block;
+    overflow-y: scroll;
+    aspect-ratio: 8.5/7;
 }
 
 .event{
@@ -86,6 +87,7 @@ h1{
     border-color: gray;
     border-width: 4px;
     border-style: outset;
+    overflow: hidden;
 }
 
 .event:hover{
@@ -141,3 +143,10 @@ h1{
     padding-right: 2px;
     border-radius: 5px;
 }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    #visualization {
+      width: 100%;
+    }
+  }
