@@ -28,7 +28,7 @@ function addEventToSideBar(event){
 
   let heading = document.createElement("h6");
   heading.classList.add("card-title");
-  heading.innerHTML = event.desc;
+  heading.innerHTML = event.heading;
 
   let desc = document.createElement("p");
   desc.classList.add("card-text");
@@ -39,7 +39,7 @@ function addEventToSideBar(event){
   date.classList.add("card-subtitle");
   date.classList.add("mb-2");
   date.classList.add("text-muted");
-  date.innerHTML = "April 10, 2018";
+  date.innerHTML = event.Month + " " + event.Day + ", " + event.Year;
 
   div.appendChild(heading);
   div.appendChild(desc);
@@ -54,7 +54,6 @@ function getEvents(){
 	d3.csv("testURLs.csv").then(data =>{
 		data.forEach(element => {
 			addEvent(element);
-      //addEventToTimeLine(element);
 		});
     d3.select('svg')
 			.selectAll('event_circle')
