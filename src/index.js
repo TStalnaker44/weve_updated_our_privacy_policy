@@ -15,19 +15,6 @@ function loadPolicy(file){
     return;
 }
 
-async function getCommits(){
-  //let commmits = await octokit.request('GET https://api/github.com/repos/TStalnaker44/commits?path=md2html.py')
-  //let commits = 'hello';
-  
-  let commits = await octokit.request('GET /repos/{owner}/{repo}', {
-    owner: 'TStalnaker44',
-    repo: 'weve_updated_our_privacy_policy'
-  });
-  
-  console.log(commits);
-  return commits;
-}
-
 import { Octokit } from "@octokit/rest";
 import {app} from "./timeline.js"
 import {addEvent, getEvents} from "./eventsbar.js"
@@ -35,16 +22,6 @@ import {addEvent, getEvents} from "./eventsbar.js"
 const octokit = new Octokit({
   userAgent: 'wuopp-viewer v1.0.0'
 });
-
-/*
-let text = octokit.rest.repos.getContent({
-  owner: 'TStalnaker44',
-  repo: 'weve_updated_our_privacy_policy',
-  path: 'md2html.py'
-});
-
-text.then(console.log(text));
-*/
 
 //adapted from https://codelounge.dev/getting-started-with-the-githubs-rest-api
 
@@ -57,71 +34,68 @@ const filepath = 'f/fa/fac/facebook.com.md';
 //const repo = 'weve_updated_our_privacy_policy'
 //const filepath = 'facebook_timestamps.csv';
 
-const url =  '/repos/{owner}/{repo}/{path}'; // leave this as is
-const ref =  'heads/master'; // 'master' represents the name of my primary branch
+const url =  '/repos/{owner}/{repo}/{path}'; // path to this repository via the API
 
-/*
-const getContents = async () => {
-  const { data } = await octokit.request({
-      owner,
-      repo,
-      url,
-      method: 'GET',
-      path: 'contents', // gets the whole repo
-  });
-  console.log(data)
-}
-*/
-
-const getFileContent = async () => {
+/**
+ * Retrieves contents of a file from Github
+ * @param {*} fpath path to the desired file in the repo
+ * @returns the text of the specified file
+ */
+const getFileContent = async (fpath) => {
+  //retrieve encoded contents of file in `path` from GitHub
   const { data } = await octokit.repos.getContent({
       owner: owner,
       repo: repo,
-      path: filepath
+      path: fpath
   });
-  //console.log(data);
-  //console.log('encoded:');
+  //decode the text
   let encoded = data.content;
-  //console.log(encoded);
-  //console.log('decoded:');
   let decoded = atob(encoded); //TODO: replace with up-to-date method
-  //console.log(decoded);
   return decoded;
 }
 
-const printFileContent = async () => {
-  let text = await getFileContent();
-  console.log(text);
-}
-
-const setFileContent = async () => {
+/**
+ * Sets the reader to display a specified file from GitHub
+ * @param {*} fpath path to the desired file in the repo
+ */
+const setReaderContent = async (fpath) => {
   let elmnt = document.getElementById("documentReader");
-  let text = await getFileContent();
+  let text = await getFileContent(fpath);
   elmnt.innerHTML = text;
 }
 
-const getCommitDates = async () => {
+/**
+ * Gets the dates of each commit to the specified file 
+ * @param {*} fpath path to the desired file in the repo
+ * @returns an array containing JSON objects of all the dates
+ */
+const getCommitDates = async (fpath) => {
   const { data } = await octokit.rest.repos.listCommits({
     owner: owner,
     repo: repo,
-    path: filepath
+    path: fpath
   });
-  console.log(data);
+  //console.log(data);
+  let checkpoints = new Array();
   for (let i in data)
   {
-    console.log(data[i].commit.author.date);
+    //console.log(data[i].commit.author.date);
+    let raw = data[i].commit.author.date.slice(0,10).split('-');
+    let date = {
+      year: raw[0],
+      month: raw[1],
+      day: raw[2]
+    };
+    checkpoints.push(date);
+    //console.log(year + " " + month + " " + day);
   }
+  console.log(checkpoints);
+  return checkpoints;
 }
 
-//getFileContent();
-//getFileCommits();
-//printFileContent();
-setFileContent();
-getCommitDates();
-console.log('new 10');
-
-//getCommits();
-//console.log(text);
+setReaderContent(filepath);
+let dates = getCommitDates(filepath);
+console.log('new 13');
 
 
 //loadPolicy("facebook_test.html");
