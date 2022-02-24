@@ -23,6 +23,10 @@ const octokit = new Octokit({
   userAgent: 'wuopp-viewer v1.0.0'
 });
 
+let monthsText = {"01":"Jan","02":"Feb","03":"Mar","04":"Apr","05":"May",
+			  "06":"Jun","07":"Jul","08":"Aug","09":"Sep",
+			  "10":"Oct","11":"Nov","12":"Dec"}
+
 //adapted from https://codelounge.dev/getting-started-with-the-githubs-rest-api
 
 const owner = 'nwintersgill'
@@ -80,9 +84,9 @@ const getCommitDates = async (fpath) => {
   {
     let raw = data[i].commit.author.date.slice(0,10).split('-');
     let date = {
-      year: raw[0],
-      month: raw[1],
-      day: raw[2]
+      Year: raw[0],
+      Month: monthsText[raw[1]],
+      Day: raw[2]
     };
     checkpoints.push(date);
   }

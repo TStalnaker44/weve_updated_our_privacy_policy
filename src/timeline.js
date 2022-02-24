@@ -4,20 +4,15 @@ import * as d3 from 'd3';
 // Temporary values used while setting up timeline design
 let startYear = 2005;
 let endYear = 2019;
-let range = endYear - startYear;
 
-let monthsPos = {"01":0,"02":31,"03":59,"04":90,"05":120,
-			  "06":151,"07":181,"08":212,"09":243,
-			  "10":273,"11":304,"12":334};
-
-let monthsText = {"01":"Jan","02":"Feb","03":"Mar","04":"Apr","05":"May",
-			  "06":"Jun","07":"Jul","08":"Aug","09":"Sep",
-			  "10":"Oct","11":"Nov","12":"Dec"}
+let monthsPos = {"Jan":0,"Feb":31,"Mar":59,"Apr":90,"May":120,
+			  "Jun":151,"Jul":181,"Aug":212,"Sep":243,
+			  "Oct":273,"Nov":304,"Dec":334};
 
 function getYFromDate(d){
-	let year = Number(d.year);
-	let month = monthsPos[d.month];
-	let day = Number(d.day);
+	let year = Number(d.Year);
+	let month = monthsPos[d.Month];
+	let day = Number(d.Day);
 	let point = 365 * (year - startYear) + month + day;
 	let SVGwidth = document.getElementById("viz").clientWidth;
 	let padding = 20;
@@ -29,8 +24,11 @@ function getYFromDate(d){
 function app(dates) {
 
 	dates.then( data => {
+
+		addSelections(data);
+		
 		d3.select('svg')
-			.selectAll('circle')
+			.selectAll('policy_circle')
 			.data(data)
 			.enter()
 			.append('circle')
@@ -48,7 +46,7 @@ function showEventDate(ev, d){
 	hover.style.display = 'block';
 	hover.style.left = ev.pageX + 2 + "px";
 	hover.style.top = ev.pageY + 2 + "px";
-	let date = monthsText[d.month] + " " + d.day + ", " + d.year
+	let date = d.Month + " " + d.Day + ", " + d.Year
 	hover.innerHTML = "<div>" + date + "</div>";
 }
 
@@ -56,6 +54,21 @@ function hideEventDate(){
 	document.getElementById("eventHover").style.display = "none";
 }
 
+function addSelections(data){
+	
+	let selector = document.getElementById('versionSelect');
+
+	data.forEach(el => {
+		let option = document.createElement("option");
+		option.setAttribute("value", "temp");
+		option.innerHTML = el.Month + " " + el.Day + ", " + el.Year;
+		selector.appendChild(option);
+	});
+}
+
 export {
-	app
+	app,
+	getYFromDate,
+	showEventDate,
+	hideEventDate
 }

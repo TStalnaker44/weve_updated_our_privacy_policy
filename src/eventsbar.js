@@ -1,6 +1,12 @@
 import * as d3 from 'd3';
 
+import {getYFromDate, showEventDate, hideEventDate} from "./timeline.js"
+
 function addEvent(event){
+  addEventToSideBar(event);
+}
+
+function addEventToSideBar(event){
 
   let eventsbar = document.getElementById('eventsBar');
 
@@ -23,7 +29,6 @@ function addEvent(event){
   heading.classList.add("card-title");
   heading.innerHTML = event.desc;
 
-
   let desc = document.createElement("p");
   desc.classList.add("card-text");
   desc.innerHTML = "Some quick example text to build on the card title and make up the bulk of the card's content.";
@@ -44,14 +49,23 @@ function addEvent(event){
   card.appendChild(link);
   eventsbar.appendChild(card);
 }
-
 function getEvents(){
 	d3.csv("testURLs.csv").then(data =>{
-		let temp = data;
 		data.forEach(element => {
 			addEvent(element);
-      console.log(element);
+      //addEventToTimeLine(element);
 		});
+    d3.select('svg')
+			.selectAll('event_circle')
+			.data(data)
+			.enter()
+			.append('circle')
+			.attr('r', 5)
+			.attr('fill', 'red')
+			.attr('cx', d => getYFromDate(d))
+			.attr('cy', 10)
+			.on('mouseover', showEventDate)
+			.on('mouseout', hideEventDate)
 	});
 }
 
