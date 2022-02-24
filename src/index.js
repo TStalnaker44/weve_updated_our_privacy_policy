@@ -75,11 +75,9 @@ const getCommitDates = async (fpath) => {
     repo: repo,
     path: fpath
   });
-  //console.log(data);
   let checkpoints = new Array();
   for (let i in data)
   {
-    //console.log(data[i].commit.author.date);
     let raw = data[i].commit.author.date.slice(0,10).split('-');
     let date = {
       year: raw[0],
@@ -87,34 +85,14 @@ const getCommitDates = async (fpath) => {
       day: raw[2]
     };
     checkpoints.push(date);
-    //console.log(year + " " + month + " " + day);
   }
-  console.log(checkpoints);
   return checkpoints;
 }
 
 setReaderContent(filepath);
 let dates = getCommitDates(filepath);
-console.log('new 13');
 
-
-//loadPolicy("facebook_test.html");
-app()
-// d3.csv("facebook_timestamps.csv").then(
-//   data => {
-//     d3.select('svg')
-//     .selectAll('circle')
-//     .data(data)
-//     .enter()
-//     .append('circle')
-//     .attr('r', 5)
-//     .attr('fill', 'green')
-//     .attr('cx', 100)
-//     .attr('cy', 100)
-
-//     console.log("Hello");
-//   }
-// );
+app(dates)
 
 let e = {link: "https://www.google.com", image: "images/event_image.jpg", desc: "Hi there partner"}
 getEvents();
