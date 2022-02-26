@@ -16,7 +16,9 @@ function loadPolicy(file){
 
 import {app} from "./timeline.js"
 import {addEvent, getEvents} from "./eventsbar.js"
+import{getArticles} from "./nytimessearch.js"
 
 loadPolicy("facebook_test.html");
 app();
 getEvents();
+getArticles();
