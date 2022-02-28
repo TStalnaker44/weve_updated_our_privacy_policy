@@ -45,7 +45,6 @@ function app() {
 }
 
 function updatePolicy(ev, d){
-	console.log("hello");
 	var file;
 	if (Number(d.Year) % 2 == 0){
 		file = "facebook_test.html";
