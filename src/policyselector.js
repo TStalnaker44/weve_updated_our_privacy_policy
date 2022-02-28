@@ -27,5 +27,6 @@ function main(){
 }
 
 export{
-    main
+    main,
+    loadPolicy
 }

@@ -1,6 +1,8 @@
 
 import * as d3 from 'd3';
 
+import {loadPolicy} from "./policyselector.js";
+
 // Temporary values used while setting up timeline design
 let startYear = 2005;
 let endYear = 2019;
@@ -38,7 +40,20 @@ function app() {
 			.attr('cy', 10)
 			.on('mouseover', showEventDate)
 			.on('mouseout', hideEventDate)
+			.on('click', updatePolicy)
 	})	
+}
+
+function updatePolicy(ev, d){
+	console.log("hello");
+	var file;
+	if (Number(d.Year) % 2 == 0){
+		file = "facebook_test.html";
+	}
+	else{
+		file = "facebook_2.html";
+	}
+	loadPolicy(file);
 }
 
 function showEventDate(ev, d){
