@@ -18,6 +18,7 @@ function loadPolicy(file){
 import { Octokit } from "@octokit/rest";
 import {app} from "./timeline.js"
 import {addEvent, getEvents} from "./eventsbar.js"
+import{getArticles} from "./nytimessearch.js"
 
 const octokit = new Octokit({
   userAgent: 'wuopp-viewer v1.0.0'
@@ -100,4 +101,4 @@ app(dates)
 
 let e = {link: "https://www.google.com", image: "images/event_image.jpg", desc: "Hi there partner"}
 getEvents();
-
+getArticles();
