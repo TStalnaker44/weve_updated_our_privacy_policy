@@ -4,7 +4,7 @@ import {addEvent, getEvents} from "./eventsbar.js"
 import {main, loadPolicy} from "./policyselector"
 import {getStats} from "./stats.js"
 
-loadPolicy("facebook_test.html");
+loadPolicy("facebookAdditions.html");//"facebook_test.html");
 app();
 getEvents();
 getStats();
