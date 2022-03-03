@@ -1,0 +1,8 @@
+Resources:
+
+https://observablehq.com/@d3/d3-scalelinear
+https://observablehq.com/@d3/axis-ticks
+https://www.geeksforgeeks.org/d3-js-axis-tickformat-function/
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getMonth
+https://stackoverflow.com/questions/1643320/get-month-name-from-date
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date

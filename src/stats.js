@@ -17,17 +17,12 @@ async function getStats(){
 		data = d;
 	}) 
 
-	const margin = {left:30, top:10, right:10, bottom:20}
-
-	//const xScale = d3.scaleLinear()
-	//	.domain(d3.extent(data.map(d => d.x)))
-	//	.range([margin.left, width-margin.right])
+	const margin = {left:60, top:10, right:10, bottom:40}
 
 	const xScale = d3.scaleTime()
 		.domain([new Date("2005-01-01"), new Date("2020-01-01")])
-		.range([margin.left, width-margin.right])
+		.range([margin.left, width - margin.right])
 
-	console.log(height-margin.bottom)
 	svg.append('g')
 		.call(d3.axisBottom(xScale)
 			.tickFormat(function(date){
@@ -38,6 +33,12 @@ async function getStats(){
 		.ticks(16)
 		)
 		.attr('transform', `translate(0,${height - margin.bottom})`)
+
+	svg.append("text")
+		.attr("text-anchor", "end")
+		.attr("x", width / 2)
+		.attr("y", height - (margin.bottom/8))
+		.text("Date");
 		
 
 	const yScale = d3.scaleLinear()
@@ -45,11 +46,18 @@ async function getStats(){
 		.range([height - margin.bottom, margin.top])
 		
 
+	// Y-Axis
 	svg.append('g')
 		.call(d3.axisLeft(yScale))
 		.attr('transform', `translate(${margin.left},0)`)
 
-	console.log(yScale(10))
+	// Y-Axis Label
+	svg.append("text")
+		.attr("text-anchor", "end")
+		.attr("transform", "rotate(-90)")
+		.attr("y", margin.left / 3)
+		.attr("x", -margin.bottom)
+		.text("Reading Time in Seconds");
 
 	svg.selectAll('circle')
 		.data(data)
