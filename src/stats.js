@@ -30,9 +30,12 @@ async function getStats(){
 				let year = String(date.getFullYear()).substring(2)
 				return month + " '" + year;
 			})
+			.tickSizeInner(-(height-margin.top-margin.bottom))
 		.ticks(16)
 		)
 		.attr('transform', `translate(0,${height - margin.bottom})`)
+		
+
 
 	svg.append("text")
 		.attr("text-anchor", "end")
@@ -42,7 +45,8 @@ async function getStats(){
 		
 
 	const yScale = d3.scaleLinear()
-		.domain(d3.extent(data.map(d => d.ReadingTime)))
+		//.domain(d3.extent(data.map(d => d.ReadingTime))).nice()
+		.domain([0,d3.max(data, d => Number(d.ReadingTime))+20])
 		.range([height - margin.bottom, margin.top])
 		
 
@@ -59,14 +63,28 @@ async function getStats(){
 		.attr("x", -margin.bottom)
 		.text("Reading Time in Seconds");
 
+	svg.datum(data)
+		.append("path")
+		.style("stroke-dasharray", ("3, 3"))
+	    .attr("fill", "none")
+	    .attr("stroke", "steelblue")
+	    .attr("stroke-width", 1.5)
+	    .attr("d", d3.line()
+	        .x(d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
+	        .y(d => yScale(d.ReadingTime))
+	    )
+
 	svg.selectAll('circle')
 		.data(data)
 		.enter()
 		.append('circle')
-			.attr('cx', d => xScale(new Date(Number(d.Year), Number(1), Number(d.Day))))
+			.attr('cx', d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
 			.attr('cy', d => yScale(d.ReadingTime))
 			.attr('r', 5)
 			.attr('fill', 'purple')
+			.on('mouseover', showDataPoint)
+    		.on('mouseout', hideDataPoint)
+
 
     // let data = []
 	// await d3.csv('mockup_data.csv').then(d => {
