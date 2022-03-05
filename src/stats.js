@@ -1,151 +1,114 @@
 
 import * as d3 from 'd3';
 
-import {getYFromDate} from "./timeline.js"
+let config = {
+	svg: d3.select('#stats'),
+	height: document.getElementById('stats').clientHeight,
+	width: document.getElementById('stats').clientWidth,
+	attr: "ReadingTime",
+	margin:  {left:60, top:10, right:10, bottom:40}
+}
+let data = []
 
-async function getStats(){
+async function statsMain(){
+	await getData();
+	prepareSelector();
+	getStats();
+}
 
-	const svg = d3.select('#stats')
-
-	const height = document.getElementById('stats').clientHeight
-	const width = document.getElementById('stats').clientWidth
-
-	console.log(height)
-
-	let data = []
-	await d3.csv('mockup_data.csv').then(d => {
+async function getData(){
+	await d3.csv('facebook_data.csv').then(d => {
 		data = d;
 	}) 
+}
 
-	const margin = {left:60, top:10, right:10, bottom:40}
+function prepareSelector(){
+    let selector = document.getElementById("fieldSelect");
+	data.columns.slice(2).forEach(el => {
+		let option = document.createElement("option");
+		option.setAttribute("value", el);
+		option.innerHTML = el;
+		selector.appendChild(option);
+	});
+    selector.addEventListener("change", function() {
+		config.attr = selector.value
+		getStats()
+    });
+}
+
+function getStats(){
+
+	config.svg.selectAll("*").remove();
 
 	const xScale = d3.scaleTime()
 		.domain([new Date("2005-01-01"), new Date("2020-01-01")])
-		.range([margin.left, width - margin.right])
+		.range([config.margin.left, config.width - config.margin.right])
 
-	svg.append('g')
+	config.svg.append('g')
 		.call(d3.axisBottom(xScale)
 			.tickFormat(function(date){
-				let month = date.toLocaleString('en-US', {month: 'short'})
+				//let month = date.toLocaleString('en-US', {month: 'short'})
+				let phase = (date.getMonth() < 6 ? "A" : "B")
 				let year = String(date.getFullYear()).substring(2)
-				return month + " '" + year;
+				return "'" + year;
 			})
-			.tickSizeInner(-(height-margin.top-margin.bottom))
-		.ticks(16)
+			.ticks(16)
+			.tickSizeInner(-(config.height-config.margin.top-config.margin.bottom))
 		)
-		.attr('transform', `translate(0,${height - margin.bottom})`)
+		.attr('transform', `translate(0,${config.height - config.margin.bottom})`)
 		
 
 
-	svg.append("text")
-		.attr("text-anchor", "end")
-		.attr("x", width / 2)
-		.attr("y", height - (margin.bottom/8))
-		.text("Date");
+	config.svg.append("text")
+		.style("text-anchor", "middle")
+		.attr("x", config.width / 2)
+		.attr("y", config.height - (config.margin.bottom/8))
+		.text("Date Archived");
 		
 
 	const yScale = d3.scaleLinear()
-		//.domain(d3.extent(data.map(d => d.ReadingTime))).nice()
-		.domain([0,d3.max(data, d => Number(d.ReadingTime))+20])
-		.range([height - margin.bottom, margin.top])
+		.domain([0,d3.max(data, d => Number(d[config.attr]))]).nice()
+		.range([config.height - config.margin.bottom, config.margin.top])
 		
 
 	// Y-Axis
-	svg.append('g')
+	config.svg.append('g')
 		.call(d3.axisLeft(yScale))
-		.attr('transform', `translate(${margin.left},0)`)
+		.attr('transform', `translate(${config.margin.left},0)`)
 
 	// Y-Axis Label
-	svg.append("text")
-		.attr("text-anchor", "end")
+	config.svg.append("text")
+		.attr("text-anchor", "middle")
 		.attr("transform", "rotate(-90)")
-		.attr("y", margin.left / 3)
-		.attr("x", -margin.bottom)
-		.text("Reading Time in Seconds");
+		.attr("y", 3 * config.margin.left / 8)
+		.attr("x", -config.height/2 + config.margin.bottom/2)
+		//.attr("y", margin.left / 3)
+		//.attr("x", -margin.bottom)
+		//.text("Reading Time in Seconds");
+		.text(config.attr)
 
-	svg.datum(data)
+	config.svg.datum(data)
 		.append("path")
 		.style("stroke-dasharray", ("3, 3"))
 	    .attr("fill", "none")
 	    .attr("stroke", "steelblue")
 	    .attr("stroke-width", 1.5)
 	    .attr("d", d3.line()
-	        .x(d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
-	        .y(d => yScale(d.ReadingTime))
+	        .x(d => xScale(new Date(Number(d.Year), (d.Phase == "A" ? 0 : 6), 1)))
+	        .y(d => yScale(d[config.attr]))
 	    )
 
-	svg.selectAll('circle')
+	config.svg.selectAll('circle')
 		.data(data)
 		.enter()
 		.append('circle')
-			.attr('cx', d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
-			.attr('cy', d => yScale(d.ReadingTime))
-			.attr('r', 5)
-			.attr('fill', 'purple')
-			.on('mouseover', showDataPoint)
-    		.on('mouseout', hideDataPoint)
-
-
-    // let data = []
-	// await d3.csv('mockup_data.csv').then(d => {
-	// 	data = d;
-	// }) 
-
-	// // https://observablehq.com/@d3/d3-scalelinear
-
-	// let svgWidth = document.getElementById("stats").clientWidth;
-    // // let xScale = d3.scaleLinear()
-	// // 	.domain([0,1400])
-	// // 	.range([0, svgWidth])
-
-	// let xScale = d3.scaleLinear()
-	// 	.range([new Date("2000-01-01 00:00:00"), new Date("2020-01-01 00:00:00")])
-
-
-	// let yScale = d3.scaleLinear()
-	// 	.domain(d3.extent(data, d => d.ReadingTime)).nice()
-	// 	.range([300, 0])
-
-    // let leftAxisG = d3.select('#stats').append('g')
-	// 	.attr('id', 'left-axis')
-	// 	.attr('transform', 'translate(30, 30)')
-	// let bottomAxisG = d3.select('#stats').append('g')
-	// 	.attr('id', 'bottom-axis')
-	// 	//.attr('transform', 'translate(30, 270)')
-
-    // let bottomAxis = d3.axisBottom(xScale)
-	// bottomAxisG.call(bottomAxis)
-
-	// let leftAxis = d3.axisLeft(yScale)
-	// leftAxisG.call(leftAxis)
+		.attr('cx', d => xScale(new Date(Number(d.Year), (d.Phase == "A" ? 0 : 6), 1)))
+		.attr('cy', d => yScale(d[config.attr]))
+		.attr('r', 5)
+		.attr('fill', 'purple')
+		.on('mouseover', showDataPoint)
+		.on('mouseout', hideDataPoint)    
 		
-    // // Add data points to visualization (The points are upside down....)
-    // d3.select('#stats')
-    //         .selectAll('stat_dot')
-    //         .data(data)
-    //         .enter()
-    //         .append('circle')
-    //         .attr('r', 3)
-    //         .attr('fill', 'green')
-    //         .attr('cx', d => getYFromDate(d))
-    //         .attr('cy', d => yScale(Number(d.ReadingTime)))
-    //         .on('mouseover', showDataPoint)
-    //         .on('mouseout', hideDataPoint)
-	
-	// console.log(yScale(Number(214)))
-
-    // // Add lines connecting data points
-    // d3.select("#stats")
-    //     .datum(data)
-    //     .append("path")
-    //     .attr("fill", "none")
-    //     .attr("stroke", "steelblue")
-    //     .attr("stroke-width", 1.5)
-    //     .attr("d", d3.line()
-    //         .x(d=>getYFromDate(d))
-    //         .y(d=>yScale(d.ReadingTime))
-    //     )
-        
 }
 
 function showDataPoint(ev, d){
@@ -153,7 +116,8 @@ function showDataPoint(ev, d){
 	hover.style.display = 'block';
 	hover.style.left = ev.pageX + 2 + "px";
 	hover.style.top = ev.pageY + 2 + "px";
-	let data = d.ReadingTime;
+	let data = d[config.attr];
+	let version = d.Year + d.Phase;
 	hover.innerHTML = "<div>" + data + "</div>";
 }
 
@@ -162,5 +126,5 @@ function hideDataPoint(){
 }
 
 export{
-    getStats
+    statsMain
 }

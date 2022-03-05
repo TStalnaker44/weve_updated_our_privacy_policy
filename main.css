@@ -125,7 +125,7 @@ h1{
     margin-right: auto;
 }
 
-#versionSelect{
+#versionSelect, #fieldSelect{
     float: right;
     width: 25%;
     text-align: center;

@@ -30,31 +30,18 @@
         </div>
         </div>
         <div id="timeLine">
-            <svg width="100%" id="viz">
+            <svg width="100%" height="30px" id="viz">
                 <line x1="0" y1="10" x2="2000" y2="10" style="stroke:rgb(0,150,150);stroke-width:2" />
             </svg>
         </div>
         <div id="statsDisplay">
+            <div class="card-header" style="text-align: center;">
+                <select name="fields" id="fieldSelect">
+                </select>
+                <h3>Policy Attributes Over Time</h3>
+            </div>
             <svg width="100%" height="300px" id="stats"></svg>
         </div>
-    </div>
-
-    <div style="margin: 10px;">
-    <p>
-        <span class="addition">Lorem ipsum dolor sit amet,</span> consectetur adipiscing elit. Curabitur 
-        <span class="deletion">porttitor, purus egestas commodo dapibus, 
-        turpis nulla lacinia ante, ut hendrerit enim quam ac dui. Integer tempor, dolor eleifend porttitor porta,</span> 
-        ligula ligula <span class="addition">vestibulum purus,</span> vel euismod felis orci quis ante. Sed rhoncus sagittis nulla, tincidunt 
-        euismod magna mollis a. Nam et dictum felis. Duis pellentesque fringilla libero, ac pretium magna venenatis a. 
-        Nulla blandit fermentum tortor, a sollicitudin erat tristique eu. Orci varius natoque penatibus et magnis dis 
-        parturient montes, <span class="deletion">nascetur ridiculus mus.</span> Mauris iaculis suscipit ultricies. Duis orci risus, facilisis non sem id,
-         vehicula vehicula velit. In lobortis massa leo, eu tempor orci vestibulum ac. Nullam pulvinar nec nibh et elementum.
-    </p>
-    <p>
-        <span class="replacement">Nunc -> Hunc</span> molestie metus sed dictum rhoncus. Nunc justo nisl, elementum at magna ut, facilisis vestibulum quam. Fusce sed dui 
-        nec dolor rhoncus vestibulum ac quis ipsum. Fusce in sodales risus. Donec tempus interdum orci et malesuada. Maecenas blandit 
-        turpis vitae est sagittis euismod. Nunc ut velit ac urna bibendum porttitor. 
-    </p>
     </div>
 
     <script src="dist/main.js"></script>
