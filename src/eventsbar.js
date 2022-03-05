@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import {getYFromDate, showEventDate, hideEventDate} from "./timeline.js"
+import {hideEventDate, xScale} from "./timeline.js"
 
 function addEvent(event){
   addEventToSideBar(event);
@@ -50,6 +50,7 @@ function addEventToSideBar(event){
   card.appendChild(link);
   eventsbar.appendChild(card);
 }
+
 function getEvents(){
 	d3.csv("testURLs.csv").then(data =>{
 		data.forEach(element => {
@@ -62,11 +63,20 @@ function getEvents(){
 			.append('circle')
 			.attr('r', 5)
 			.attr('fill', 'red')
-			.attr('cx', d => getYFromDate(d))
+			.attr('cx', d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
 			.attr('cy', 10)
 			.on('mouseover', showEventDate)
 			.on('mouseout', hideEventDate)
 	});
+}
+
+function showEventDate(ev, d){
+	let hover = document.getElementById('eventHover')
+	hover.style.display = 'block';
+	hover.style.left = ev.pageX + 2 + "px";
+	hover.style.top = ev.pageY + 2 + "px";
+	let date = (Number(d.Month)+1) + "/" + d.Day + "/" + d.Year.substring(2)
+	hover.innerHTML = "<div>" + date + "</div>";
 }
 
 export{

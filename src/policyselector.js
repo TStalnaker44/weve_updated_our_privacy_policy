@@ -14,19 +14,6 @@ function loadPolicy(file){
     return;
 }
 
-function main(){
-    let selector = document.getElementById("versionSelect");
-    selector.addEventListener("change", function() {
-        if(Number(selector.value) % 2 == 0){
-            loadPolicy("facebook_test.html");
-        }
-        else {
-            loadPolicy("facebook_2.html");
-        }
-    });
-}
-
 export{
-    main,
     loadPolicy
 }
