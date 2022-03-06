@@ -21,6 +21,7 @@ function getArticles(){
         console.log(jsondata);
         jsondata.response.docs.forEach(Article=>{
             console.log(Article.web_url)
+            console.log(Article.pub_date)
         }
 
         )
