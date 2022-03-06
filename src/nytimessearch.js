@@ -1,4 +1,4 @@
-import * as d3 from 'd3';
+//import * as d3 from 'd3';
 import {getYFromDate, showEventDate, hideEventDate} from "./timeline.js"
 //code modified from https://www.delftstack.com/howto/javascript/load-json-file-in-javascript/
 //inspiration from https://www.youtube.com/watch?v=IMne3LY4bks&t=642s
