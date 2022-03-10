@@ -1,32 +1,20 @@
 
 import * as d3 from 'd3';
 
-// Temporary values used while setting up timeline design
-let startYear = 2005;
-let endYear = 2019;
+import {loadPolicy} from "./policyselector.js";
 
-let months = {"Jan":0,"Feb":31,"Mar":59,"Apr":90,"May":120,
-			  "Jun":151,"Jul":181,"Aug":212,"Sep":243,
-			  "Oct":273,"Nov":304,"Dec":334}
-
-function getYFromDate(d){
-	let year = Number(d.Year);
-	let month = months[d.Month];
-	let day = Number(d.Day);
-	let point = 365 * (year - startYear) + month + day;
-	let SVGwidth = document.getElementById("viz").clientWidth;
-	let padding = 20;
-	let range = 365 * (endYear + 1 - startYear);
-	point = Math.round(point * ((SVGwidth-(2*padding)) / range)) + padding;
-	return point;
-}
+let width = document.getElementById('viz').clientWidth
+const xScale = d3.scaleTime()
+	.domain([new Date("2005-01-01"), new Date("2020-01-01")])
+	.range([0, width])
 
 function app() {
 
-	d3.dsv(' ', 'facebook_timestamps.csv').then(data => {
+	//d3.dsv(' ', 'facebook_timestamps.csv').then(data => {
+	d3.csv('facebook_data.csv').then(data => {
 
 		addSelections(data);
-		
+
 		d3.select('svg')
 			.selectAll('policy_circle')
 			.data(data)
@@ -34,11 +22,19 @@ function app() {
 			.append('circle')
 			.attr('r', 5)
 			.attr('fill', '#0e59bb')
-			.attr('cx', d => getYFromDate(d))
+			//.attr('cx', d => getYFromDate(d))
+			.attr('cx', d => xScale(new Date(Number(d.Year), (d.Phase == "A" ? 0 : 6), 1)))
 			.attr('cy', 10)
 			.on('mouseover', showEventDate)
 			.on('mouseout', hideEventDate)
+			.on('click', updatePolicy)
 	})	
+}
+
+function updatePolicy(ev, d){
+	var file = "example_policies/" + d.Year + d.Phase + ".html"
+	loadPolicy(file);
+	document.getElementById('versionSelect').value = d.Year + d.Phase
 }
 
 function showEventDate(ev, d){
@@ -46,7 +42,7 @@ function showEventDate(ev, d){
 	hover.style.display = 'block';
 	hover.style.left = ev.pageX + 2 + "px";
 	hover.style.top = ev.pageY + 2 + "px";
-	let date = d.Month + " " + d.Day + ", " + d.Year
+	let date = d.Year + d.Phase
 	hover.innerHTML = "<div>" + date + "</div>";
 }
 
@@ -58,17 +54,24 @@ function addSelections(data){
 	
 	let selector = document.getElementById('versionSelect');
 
-	data.forEach(el => {
+	let i = 0;
+	data.reverse().forEach(el => {
 		let option = document.createElement("option");
-		option.setAttribute("value", "temp");
-		option.innerHTML = el.Month + " " + el.Day + ", " + el.Year;
+		option.setAttribute("value", el.Year + el.Phase); //This can eventually be the commit id
+		option.innerHTML = el.Year + el.Phase;
 		selector.appendChild(option);
+		i += 1;
 	});
+
+	selector.addEventListener("change", function() {
+        var file = "example_policies/" + selector.value + ".html";
+		loadPolicy(file);
+    });
 }
 
 export {
 	app,
-	getYFromDate,
 	showEventDate,
-	hideEventDate
+	hideEventDate,
+	xScale
 }

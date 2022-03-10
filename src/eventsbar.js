@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
 
-import {getYFromDate, showEventDate, hideEventDate} from "./timeline.js"
+import {hideEventDate, xScale} from "./timeline.js"
+
+const numToMon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
 function addEvent(event){
   addEventToSideBar(event);
@@ -16,6 +18,7 @@ function addEventToSideBar(event){
   let link = document.createElement("a");
   link.classList.add("eventLink");
   link.setAttribute("href", event.link);
+  link.setAttribute("target", "_blank");
 
   let img = document.createElement("img");
   img.classList.add("card-img-top");
@@ -27,7 +30,7 @@ function addEventToSideBar(event){
 
   let heading = document.createElement("h6");
   heading.classList.add("card-title");
-  heading.innerHTML = event.desc;
+  heading.innerHTML = event.heading;
 
   let desc = document.createElement("p");
   desc.classList.add("card-text");
@@ -38,7 +41,7 @@ function addEventToSideBar(event){
   date.classList.add("card-subtitle");
   date.classList.add("mb-2");
   date.classList.add("text-muted");
-  date.innerHTML = "April 10, 2018";
+  date.innerHTML = numToMon[Number(event.Month)] + " " + event.Day + ", " + event.Year;
 
   div.appendChild(heading);
   div.appendChild(desc);
@@ -49,11 +52,11 @@ function addEventToSideBar(event){
   card.appendChild(link);
   eventsbar.appendChild(card);
 }
+
 function getEvents(){
 	d3.csv("testURLs.csv").then(data =>{
 		data.forEach(element => {
 			addEvent(element);
-      //addEventToTimeLine(element);
 		});
     d3.select('svg')
 			.selectAll('event_circle')
@@ -62,11 +65,20 @@ function getEvents(){
 			.append('circle')
 			.attr('r', 5)
 			.attr('fill', 'red')
-			.attr('cx', d => getYFromDate(d))
+			.attr('cx', d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
 			.attr('cy', 10)
 			.on('mouseover', showEventDate)
 			.on('mouseout', hideEventDate)
 	});
+}
+
+function showEventDate(ev, d){
+	let hover = document.getElementById('eventHover')
+	hover.style.display = 'block';
+	hover.style.left = ev.pageX + 2 + "px";
+	hover.style.top = ev.pageY + 2 + "px";
+	let date = (Number(d.Month)+1) + "/" + d.Day + "/" + d.Year.substring(2)
+	hover.innerHTML = "<div>" + date + "</div>";
 }
 
 export{
