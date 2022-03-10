@@ -2,6 +2,8 @@ import * as d3 from 'd3';
 
 import {hideEventDate, xScale} from "./timeline.js"
 
+const numToMon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
 function addEvent(event){
   addEventToSideBar(event);
 }
@@ -39,7 +41,7 @@ function addEventToSideBar(event){
   date.classList.add("card-subtitle");
   date.classList.add("mb-2");
   date.classList.add("text-muted");
-  date.innerHTML = event.Month + " " + event.Day + ", " + event.Year;
+  date.innerHTML = numToMon[Number(event.Month)] + " " + event.Day + ", " + event.Year;
 
   div.appendChild(heading);
   div.appendChild(desc);
