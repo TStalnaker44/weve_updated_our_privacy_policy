@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <title>Privacy Policy Visualization</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
@@ -30,11 +31,20 @@
         </div>
         </div>
         <div id="timeLine">
-            <svg width="100%" id="viz">
+            <svg width="100%" height="30px" id="viz">
                 <line x1="0" y1="10" x2="2000" y2="10" style="stroke:rgb(0,150,150);stroke-width:2" />
             </svg>
         </div>
+        <div id="statsDisplay">
+            <div class="card-header" style="text-align: center;">
+                <select name="fields" id="fieldSelect">
+                </select>
+                <h3>Policy Attributes Over Time</h3>
+            </div>
+            <svg width="100%" height="300px" id="stats"></svg>
+        </div>
     </div>
+    <h6 id="citation">More information about the dataset used in this visualization can be found in the <a href="https://arxiv.org/abs/2008.09159">original paper</a></h6>
 
     <script src="dist/main.js"></script>
 

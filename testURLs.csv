@@ -1,4 +1,4 @@
-desc,image,link,Month,Day,Year
-Facebook CEO Testifies Before US Congress,images/event_image.jpg,https://www.npr.org/sections/thetwo-way/2018/04/10/599808766/i-m-responsible-for-what-happens-at-facebook-mark-zuckerberg-will-tell-senate,Apr,10,2018
-Cambridge Analytica Scandal,images/event_image_2.jfif,https://www.nytimes.com/2018/04/04/us/politics/cambridge-analytica-scandal-fallout.html,Feb,3,2012
-Another Event,images/event_image.jpg,http://www.google.com,Jan,2,2005
+heading,desc,image,link,Month,Day,Year
+Facebook CEO Testifies Before US Congress,blah blah blah,images/event_image.jpg,https://www.npr.org/sections/thetwo-way/2018/04/10/599808766/i-m-responsible-for-what-happens-at-facebook-mark-zuckerberg-will-tell-senate,4,10,2018
+Cambridge Analytica Scandal,some test text,images/event_image_2.jfif,https://www.nytimes.com/2018/04/04/us/politics/cambridge-analytica-scandal-fallout.html,1,3,2012
+Another Event,nothing to see here,images/event_image.jpg,http://www.google.com,0,2,2005
