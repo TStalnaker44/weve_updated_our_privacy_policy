@@ -3,6 +3,11 @@ h1{
     text-align: center;
 }
 
+#citation{
+    text-align: center;
+    margin-top: 10px;
+}
+
 #visualization{
     margin: auto;
     width: 90%;
