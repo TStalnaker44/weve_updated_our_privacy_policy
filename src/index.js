@@ -24,4 +24,4 @@ app();
 getEvents();
 setURL(20120101,20120103,'security')
 getArticles();
-getNewsArticles();
+ getNewsArticles();
