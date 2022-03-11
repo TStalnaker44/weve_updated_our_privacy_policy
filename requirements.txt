@@ -3,3 +3,4 @@ Django==4.0.3
 python-decouple==3.6
 sqlparse==0.4.2
 tzdata==2021.5
+Markdown==3.3.6

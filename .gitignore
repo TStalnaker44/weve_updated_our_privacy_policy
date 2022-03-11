@@ -2,3 +2,10 @@ node_modules
 .env
 wuopp/__pycache__/
 viewer/__pycache__/
+viewer/migrations/__pycache__
+
+release_db.sqlite
+
+sqldiff.exe
+sqlite3.exe
+sqlite3_analyzer.exe

@@ -15,6 +15,9 @@
         
         <p>The visual styling of this tool is still in flux and its functionality is still being developed.  
             Being a work in progress, this tool will continue to undergo changes.</p>
+        {% if fb_domain %}
+            <p> {{ fb_domain.domain }}</p>
+        {% endif %}
     </div>
     
     <div id="visualization">
@@ -25,7 +28,11 @@
         </div>
         <div id="middle">
         <div id="documentReader">
-        
+            {% autoescape off %}
+            {% if policy_text_html %}
+                <p> {{ policy_text_html }}</p>
+            {% endif %}
+            {% endautoescape %}
         </div>
         <div id="eventsBar">            
         </div>
@@ -38,7 +45,7 @@
     </div>
 
     {% load static %} 
-    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
 
 </body>
 </html>
