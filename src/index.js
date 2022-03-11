@@ -17,9 +17,11 @@ function loadPolicy(file){
 import {app} from "./timeline.js"
 import {addEvent, getEvents} from "./eventsbar.js"
 import{getArticles, setURL} from "./nytimessearch.js"
+import { getNewsArticles } from "./newsapitest.js";
 
 loadPolicy("facebook_test.html");
 app();
 getEvents();
 setURL(20120101,20120103,'security')
 getArticles();
+getNewsArticles();

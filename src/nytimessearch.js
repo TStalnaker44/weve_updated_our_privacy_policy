@@ -26,9 +26,6 @@ function getArticles(){
 
         )
     })
-    
-    
-
 }
 
 export{
