@@ -3,7 +3,7 @@
 Modified from: https://www.w3schools.com/howto/howto_js_autocomplete.asp
 */
 
-MAX_SUGGESTIONS = 8;
+let MAX_SUGGESTIONS = 6;
 
 function autocomplete(input, arr){
     var currentFocus;
@@ -21,7 +21,9 @@ function autocomplete(input, arr){
 
         this.parentNode.appendChild(a);
 
-        for (i=0; i<arr.length; i++){
+        let suggestions = 0;
+        i = 0;
+        while (suggestions < MAX_SUGGESTIONS && i<arr.length){
             // Check if item starts with same letters as text field value
             if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()){
                 b = document.createElement("div");
@@ -33,7 +35,9 @@ function autocomplete(input, arr){
                     closeAllLists();
                 });
                 a.appendChild(b);
+                suggestions++;
             }
+            i++;
         }
     });
 
