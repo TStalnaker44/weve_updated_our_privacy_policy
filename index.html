@@ -5,6 +5,7 @@
     <title>Privacy Policy Visualization</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="searchbox.css">
 </head>
 <body>
     
@@ -15,6 +16,10 @@
         
         <p>The visual styling of this tool is still in flux and its functionality is still being developed.  
             Being a work in progress, this tool will continue to undergo changes.</p>
+    </div>
+
+    <div class="autocomplete" style="width:300px">
+        <input id="companyInput" type="text" name="company" placeholder="Company">
     </div>
     
     <div id="visualization">
@@ -47,6 +52,6 @@
     <h6 id="citation">More information about the dataset used in this visualization can be found in the <a href="https://arxiv.org/abs/2008.09159">original paper</a></h6>
 
     <script src="dist/main.js"></script>
-
+    
 </body>
 </html>
