@@ -15,10 +15,13 @@ function loadPolicy(file){
     return;
 }
 
-import { Octokit } from "@octokit/rest";
-import {app} from "./timeline.js"
+//import { Octokit } from "@octokit/rest";
+import {viewerApp} from "./timeline.js"
 import {addEvent, getEvents} from "./eventsbar.js"
 import{getArticles} from "./nytimessearch.js"
+import {app} from "./timeline.js"
+//import {loadPolicy} from "./policyselector"
+import {statsMain} from "./stats.js"
 
 const octokit = new Octokit({
   userAgent: 'wuopp-viewer v1.0.0'
@@ -41,11 +44,12 @@ const filepath = 'f/fa/fac/facebook.com.md';
 
 const url =  '/repos/{owner}/{repo}/{path}'; // path to this repository via the API
 
+/*
 /**
  * Retrieves contents of a file from Github
  * @param {*} fpath path to the desired file in the repo
  * @returns the text of the specified file
- */
+ *
 const getFileContent = async (fpath) => {
   //retrieve encoded contents of file in `path` from GitHub
   const { data } = await octokit.repos.getContent({
@@ -62,7 +66,7 @@ const getFileContent = async (fpath) => {
 /**
  * Sets the reader to display a specified file from GitHub
  * @param {*} fpath path to the desired file in the repo
- */
+ *
 const setReaderContent = async (fpath) => {
   let elmnt = document.getElementById("documentReader");
   let text = await getFileContent(fpath);
@@ -73,7 +77,7 @@ const setReaderContent = async (fpath) => {
  * Gets the dates of each commit to the specified file 
  * @param {*} fpath path to the desired file in the repo
  * @returns an array containing JSON objects of all the dates
- */
+ *
 const getCommitDates = async (fpath) => {
   const { data } = await octokit.rest.repos.listCommits({
     owner: owner,
@@ -93,12 +97,15 @@ const getCommitDates = async (fpath) => {
   }
   return checkpoints;
 }
+*/
 
-setReaderContent(filepath);
-let dates = getCommitDates(filepath);
+//setReaderContent(filepath);
+let dates = new Array();//getCommitDates(filepath);
 
-app(dates)
+viewerApp(dates);
 
 let e = {link: "https://www.google.com", image: "images/event_image.jpg", desc: "Hi there partner"}
 getEvents();
+//setURL(20120101,20120103,'security')
 getArticles();
+statsMain();
