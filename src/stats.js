@@ -21,6 +21,14 @@ let field2label = {
 	"SentenceCount":"Sentence Count"
 }
 
+// Replace these with more thought out explanations of fields
+let field2desc = {
+	"ReadingTime":"Reading Time in Seconds",
+	"FleschScore":"Flesch Reading Score",
+	"SmogScore":"Smog Score",
+	"LexiconCount":"Lexicon Count",
+	"SentenceCount":"Sentence Count"
+}
 
 const xScale = d3.scaleTime()
 	.domain([config.startDate, config.endDate])
@@ -95,9 +103,6 @@ function getStats(){
 		.attr("transform", "rotate(-90)")
 		.attr("y", 3 * config.margin.left / 8)
 		.attr("x", -config.height/2 + config.margin.bottom/2)
-		//.attr("y", margin.left / 3)
-		//.attr("x", -margin.bottom)
-		//.text("Reading Time in Seconds");
 		.text(field2label[config.attr])
 
 	config.svg.datum(data)
@@ -136,7 +141,10 @@ function getStats(){
 			.on('mouseover', showEventTip)
 			.on('mouseout', hideToolTip)
 	});
-		
+
+	// Update the plain text description to reflect the selected field
+	let descField = document.getElementById("fieldDesc");
+	descField.innerText = field2desc[config.attr];
 }
 
 function getXCoord(d){
