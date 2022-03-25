@@ -1,5 +1,6 @@
 
 import * as d3 from 'd3';
+import {showToolTip, hideToolTip} from "./utils.js"
 
 let config = {
 	svg: d3.select('#stats'),
@@ -107,22 +108,29 @@ function getStats(){
 		.attr('r', 5)
 		.attr('fill', 'purple')
 		.on('mouseover', showDataPoint)
-		.on('mouseout', hideDataPoint)    
+		.on('mouseout', hideToolTip)  
+		
+		d3.csv("testURLs.csv").then(data =>{
+			config.svg
+				.selectAll('event_triangle')
+				.data(data)
+				.enter()
+				.append('path')
+				.attr("d", d3.symbol().type(d3.symbolTriangle))
+				.attr('fill', 'red')
+				.attr("transform", d=> `translate(${xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)))}, ${ yScale(10)})`)
+				//.on('mouseover', showEventDate)
+				//.on('mouseout', hideEventDate)
+		});
 		
 }
 
 function showDataPoint(ev, d){
-	let hover = document.getElementById('eventHover')
-	hover.style.display = 'block';
-	hover.style.left = ev.pageX + 2 + "px";
-	hover.style.top = ev.pageY + 2 + "px";
 	let data = d[config.attr];
 	let version = d.Year + d.Phase;
-	hover.innerHTML = "<div>" + data + "</div>";
-}
-
-function hideDataPoint(){
-	document.getElementById("eventHover").style.display = "none";
+	let html = version + "<br>" + data;
+	showToolTip(ev, html);
+	
 }
 
 export{

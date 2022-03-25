@@ -59,13 +59,13 @@ function getEvents(){
 			addEvent(element);
 		});
     d3.select('svg')
-			.selectAll('event_circle')
+			.selectAll('event_triangle')
 			.data(data)
 			.enter()
-			.append('circle')
-			.attr('r', 5)
+			.append('path')
+      .attr("d", d3.symbol().type(d3.symbolTriangle))
 			.attr('fill', 'red')
-			.attr('cx', d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
+      .attr("transform", d=> `translate(${xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)))}, 10)`)
 			.attr('cy', 10)
 			.on('mouseover', showEventDate)
 			.on('mouseout', hideEventDate)
