@@ -7,13 +7,15 @@ let config = {
 	height: document.getElementById('stats').clientHeight,
 	width: document.getElementById('stats').clientWidth,
 	attr: "ReadingTime",
-	margin:  {left:60, top:10, right:10, bottom:40}
+	margin:  {left:60, top:10, right:10, bottom:40},
+	startDate: new Date("2005-01-01"),
+	endDate: new Date("2020-01-01")
 }
 
 let data = []
 
 const xScale = d3.scaleTime()
-	.domain([new Date("2005-01-01"), new Date("2020-01-01")])
+	.domain([config.startDate, config.endDate])
 	.range([config.margin.left, config.width - config.margin.right])
 
 async function statsMain(){
@@ -135,8 +137,8 @@ function getXCoord(d){
 
 function getYCoord(d){
 	let points = document.getElementsByClassName("versionPoint");
-	let left = [xScale(new Date("2005-01-01")), xScale(0)];
-	let right = [xScale(new Date("2020-01-01")), xScale(0)];
+	let left = [xScale(config.startDate), xScale(0)];
+	let right = [xScale(config.endDate), xScale(0)];
 	let target = getXCoord(d);
 	for (let i = 0; i < points.length; i++) { 
 		let p = points[i];
