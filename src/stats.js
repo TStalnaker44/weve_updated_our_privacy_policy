@@ -1,6 +1,7 @@
 
 import * as d3 from 'd3';
 import {showToolTip, hideToolTip} from "./utils.js"
+import {loadPolicy} from "./policyselector.js";
 
 let config = {
 	svg: d3.select('#stats'),
@@ -110,7 +111,8 @@ function getStats(){
 		.attr('fill', 'purple')
 		.attr('class', 'versionPoint')
 		.on('mouseover', showPolicyTip)
-		.on('mouseout', hideToolTip)  
+		.on('mouseout', hideToolTip)
+		.on('click', updatePolicy)  
 		
 	d3.csv("testURLs.csv").then(data =>{
 		config.svg
@@ -165,6 +167,13 @@ function showEventTip(ev, d){
 	let date = (Number(d.Month)+1) + "/" + d.Day + "/" + d.Year.substring(2);
 	let html = "<div>" + date + "</div>";
 	showToolTip(ev, html);
+}
+
+function updatePolicy(ev, d){
+	var file = "example_policies/" + d.Year + d.Phase + ".html";
+	loadPolicy(file);
+	document.getElementById('versionSelect').value = d.Year + d.Phase;
+	//scroll(0,0); //returns user to the top of the page
 }
 
 export{
