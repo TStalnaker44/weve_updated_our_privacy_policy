@@ -11,6 +11,15 @@ let config = {
 	startDate: new Date("2005-01-01"),
 	endDate: new Date("2020-01-01")
 }
+config.xScale = getXScale(); //Add separate since requires other fields in config to calculate
+
+window.addEventListener('resize', function() {
+	console.log("yep we resized")
+	config.height = document.getElementById('stats').clientHeight;
+	config.width = document.getElementById('stats').clientWidth;
+	config.xScale = getXScale();
+	getStats();
+  });
 
 let data = [];
 let field2label = {
@@ -30,9 +39,11 @@ let field2desc = {
 	"SentenceCount":"Sentence Count"
 }
 
-const xScale = d3.scaleTime()
+function getXScale(){
+	return d3.scaleTime()
 	.domain([config.startDate, config.endDate])
 	.range([config.margin.left, config.width - config.margin.right])
+}
 
 async function statsMain(){
 	await getData();
@@ -66,7 +77,7 @@ function getStats(){
 	config.svg.selectAll("*").remove();
 
 	config.svg.append('g')
-		.call(d3.axisBottom(xScale)
+		.call(d3.axisBottom(config.xScale)
 			.tickFormat(function(date){
 				//let month = date.toLocaleString('en-US', {month: 'short'})
 				let phase = (date.getMonth() < 6 ? "A" : "B")
@@ -112,7 +123,7 @@ function getStats(){
 	    .attr("stroke", "steelblue")
 	    .attr("stroke-width", 1.5)
 	    .attr("d", d3.line()
-	        .x(d => xScale(new Date(Number(d.Year), (d.Phase == "A" ? 0 : 6), 1)))
+	        .x(d => config.xScale(new Date(Number(d.Year), (d.Phase == "A" ? 0 : 6), 1)))
 	        .y(d => yScale(d[config.attr]))
 	    )
 
@@ -120,7 +131,7 @@ function getStats(){
 		.data(data)
 		.enter()
 		.append('circle')
-		.attr('cx', d => xScale(new Date(Number(d.Year), (d.Phase == "A" ? 0 : 6), 1)))
+		.attr('cx', d => config.xScale(new Date(Number(d.Year), (d.Phase == "A" ? 0 : 6), 1)))
 		.attr('cy', d => yScale(d[config.attr]))
 		.attr('r', 5)
 		.attr('fill', 'purple')
@@ -148,13 +159,13 @@ function getStats(){
 }
 
 function getXCoord(d){
-	return xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)));
+	return config.xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)));
 }
 
 function getYCoord(d){
 	let points = document.getElementsByClassName("versionPoint");
-	let left = [xScale(config.startDate), xScale(0)];
-	let right = [xScale(config.endDate), xScale(0)];
+	let left = [config.xScale(config.startDate), config.xScale(0)];
+	let right = [config.xScale(config.endDate), config.xScale(0)];
 	let target = getXCoord(d);
 	for (let i = 0; i < points.length; i++) { 
 		let p = points[i];
@@ -191,6 +202,8 @@ function updatePolicy(ev, d){
 	document.getElementById('versionSelect').value = d.Year + d.Phase;
 	//scroll(0,0); //returns user to the top of the page
 }
+
+
 
 export{
     statsMain
