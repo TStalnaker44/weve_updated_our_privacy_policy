@@ -1,7 +1,6 @@
 
 import * as d3 from 'd3';
-import {showToolTip, hideToolTip} from "./utils.js"
-import {loadPolicy} from "./policyselector.js";
+import {showToolTip, hideToolTip, addSelections, loadPolicy} from "./utils.js"
 
 let config = {
 	svg: d3.select('#stats'),
@@ -19,6 +18,7 @@ const xScale = d3.scaleTime()
 
 async function statsMain(){
 	await getData();
+	addSelections(data);
 	prepareSelector();
 	getStats();
 }
@@ -138,7 +138,6 @@ function getYCoord(d){
 	let left = [xScale(new Date("2005-01-01")), xScale(0)];
 	let right = [xScale(new Date("2020-01-01")), xScale(0)];
 	let target = getXCoord(d);
-	console.log(left + " " + right)
 	for (let i = 0; i < points.length; i++) { 
 		let p = points[i];
 		let p_x = Number(p.getAttribute("cx"));
@@ -150,7 +149,6 @@ function getYCoord(d){
 			right = [p_x, p_y];
 		}
 	}
-	console.log(left + " " + right)
 	let m = (right[1] - left[1]) / (right[0] - left[0]);
 	let yCoord = (m * (target - left[0])) + left[1];
 	return yCoord;

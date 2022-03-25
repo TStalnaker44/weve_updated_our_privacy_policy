@@ -1,7 +1,7 @@
 
 //import {app} from "./timeline.js"
 import {getEvents} from "./eventsbar.js"
-import {loadPolicy} from "./policyselector"
+import {loadPolicy} from "./utils"
 import {statsMain} from "./stats.js"
 import {autocomplete} from "./searchBar"
 import {companies} from "./companies.js"
