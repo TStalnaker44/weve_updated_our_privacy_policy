@@ -12,7 +12,15 @@ let config = {
 	endDate: new Date("2020-01-01")
 }
 
-let data = []
+let data = [];
+let field2label = {
+	"ReadingTime":"Reading Time in Seconds",
+	"FleschScore":"Flesch Reading Score",
+	"SmogScore":"Smog Score",
+	"LexiconCount":"Lexicon Count",
+	"SentenceCount":"Sentence Count"
+}
+
 
 const xScale = d3.scaleTime()
 	.domain([config.startDate, config.endDate])
@@ -90,7 +98,7 @@ function getStats(){
 		//.attr("y", margin.left / 3)
 		//.attr("x", -margin.bottom)
 		//.text("Reading Time in Seconds");
-		.text(config.attr)
+		.text(field2label[config.attr])
 
 	config.svg.datum(data)
 		.append("path")
@@ -177,6 +185,5 @@ function updatePolicy(ev, d){
 }
 
 export{
-    statsMain,
-	xScale
+    statsMain
 }
