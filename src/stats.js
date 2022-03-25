@@ -109,21 +109,21 @@ function getStats(){
 		.attr('r', 5)
 		.attr('fill', 'purple')
 		.attr('class', 'versionPoint')
-		.on('mouseover', showDataPoint)
+		.on('mouseover', showPolicyTip)
 		.on('mouseout', hideToolTip)  
 		
-		d3.csv("testURLs.csv").then(data =>{
-			config.svg
-				.selectAll('event_triangle')
-				.data(data)
-				.enter()
-				.append('path')
-				.attr("d", d3.symbol().type(d3.symbolTriangle))
-				.attr('fill', 'red')
-				.attr("transform", d=> `translate(${getXCoord(d)}, ${getYCoord(d)})`)
-				//.on('mouseover', showEventDate)
-				//.on('mouseout', hideEventDate)
-		});
+	d3.csv("testURLs.csv").then(data =>{
+		config.svg
+			.selectAll('event_triangle')
+			.data(data)
+			.enter()
+			.append('path')
+			.attr("d", d3.symbol().type(d3.symbolTriangle))
+			.attr('fill', 'red')
+			.attr("transform", d=> `translate(${getXCoord(d)}, ${getYCoord(d)})`)
+			.on('mouseover', showEventTip)
+			.on('mouseout', hideToolTip)
+	});
 		
 }
 
@@ -154,12 +154,17 @@ function getYCoord(d){
 	return yCoord;
 }
 
-function showDataPoint(ev, d){
+function showPolicyTip(ev, d){
 	let data = d[config.attr];
 	let version = d.Year + d.Phase;
 	let html = version + "<br>" + data;
+	showToolTip(ev, html);	
+}
+
+function showEventTip(ev, d){
+	let date = (Number(d.Month)+1) + "/" + d.Day + "/" + d.Year.substring(2);
+	let html = "<div>" + date + "</div>";
 	showToolTip(ev, html);
-	
 }
 
 export{
