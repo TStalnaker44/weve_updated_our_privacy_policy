@@ -177,5 +177,6 @@ function updatePolicy(ev, d){
 }
 
 export{
-    statsMain
+    statsMain,
+	xScale
 }

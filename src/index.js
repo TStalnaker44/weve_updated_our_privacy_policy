@@ -1,5 +1,5 @@
 
-import {app} from "./timeline.js"
+//import {app} from "./timeline.js"
 import {getEvents} from "./eventsbar.js"
 import {loadPolicy} from "./policyselector"
 import {statsMain} from "./stats.js"
@@ -7,7 +7,7 @@ import {autocomplete} from "./searchBar"
 import {companies} from "./companies.js"
 
 loadPolicy("example_policies/2019B.html");
-app();
+//app();
 getEvents();
 statsMain();
 autocomplete(document.getElementById("companyInput"), companies)

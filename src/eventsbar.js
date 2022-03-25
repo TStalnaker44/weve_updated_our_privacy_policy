@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 
-import {hideEventDate, xScale} from "./timeline.js"
+import {xScale} from "./stats.js"
 
 const numToMon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
@@ -58,18 +58,18 @@ function getEvents(){
 		data.forEach(element => {
 			addEvent(element);
 		});
-    d3.select('svg')
-			.selectAll('event_triangle')
-			.data(data)
-			.enter()
-			.append('path')
-      .attr("d", d3.symbol().type(d3.symbolTriangle))
-			.attr('fill', 'red')
-      .attr("transform", d=> `translate(${xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)))}, 10)`)
-			.attr('cy', 10)
-			.on('mouseover', showEventDate)
-			.on('mouseout', hideEventDate)
-	});
+  //   d3.select('svg')
+	// 		.selectAll('event_triangle')
+	// 		.data(data)
+	// 		.enter()
+	// 		.append('path')
+  //     .attr("d", d3.symbol().type(d3.symbolTriangle))
+	// 		.attr('fill', 'red')
+  //     .attr("transform", d=> `translate(${xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)))}, 10)`)
+	// 		.attr('cy', 10)
+	// 		.on('mouseover', showEventDate)
+	// 		.on('mouseout', hideEventDate)
+	 });
 }
 
 function showEventDate(ev, d){
