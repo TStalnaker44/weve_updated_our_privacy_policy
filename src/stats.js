@@ -9,7 +9,12 @@ let config = {
 	attr: "ReadingTime",
 	margin:  {left:60, top:10, right:10, bottom:40}
 }
+
 let data = []
+
+const xScale = d3.scaleTime()
+	.domain([new Date("2005-01-01"), new Date("2020-01-01")])
+	.range([config.margin.left, config.width - config.margin.right])
 
 async function statsMain(){
 	await getData();
@@ -40,10 +45,6 @@ function prepareSelector(){
 function getStats(){
 
 	config.svg.selectAll("*").remove();
-
-	const xScale = d3.scaleTime()
-		.domain([new Date("2005-01-01"), new Date("2020-01-01")])
-		.range([config.margin.left, config.width - config.margin.right])
 
 	config.svg.append('g')
 		.call(d3.axisBottom(xScale)
@@ -107,6 +108,7 @@ function getStats(){
 		.attr('cy', d => yScale(d[config.attr]))
 		.attr('r', 5)
 		.attr('fill', 'purple')
+		.attr('class', 'versionPoint')
 		.on('mouseover', showDataPoint)
 		.on('mouseout', hideToolTip)  
 		
@@ -118,11 +120,38 @@ function getStats(){
 				.append('path')
 				.attr("d", d3.symbol().type(d3.symbolTriangle))
 				.attr('fill', 'red')
-				.attr("transform", d=> `translate(${xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)))}, ${ yScale(10)})`)
+				.attr("transform", d=> `translate(${getXCoord(d)}, ${getYCoord(d)})`)
 				//.on('mouseover', showEventDate)
 				//.on('mouseout', hideEventDate)
 		});
 		
+}
+
+function getXCoord(d){
+	return xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day)));
+}
+
+function getYCoord(d){
+	let points = document.getElementsByClassName("versionPoint");
+	let left = [xScale(new Date("2005-01-01")), xScale(0)];
+	let right = [xScale(new Date("2020-01-01")), xScale(0)];
+	let target = getXCoord(d);
+	console.log(left + " " + right)
+	for (let i = 0; i < points.length; i++) { 
+		let p = points[i];
+		let p_x = Number(p.getAttribute("cx"));
+		let p_y = Number(p.getAttribute("cy"));
+		if (p_x <= target && p_x > left[0]){
+			left = [p_x, p_y];
+		}
+		else if (p_x >= target && p_x < right[0]){
+			right = [p_x, p_y];
+		}
+	}
+	console.log(left + " " + right)
+	let m = (right[1] - left[1]) / (right[0] - left[0]);
+	let yCoord = (m * (target - left[0])) + left[1];
+	return yCoord;
 }
 
 function showDataPoint(ev, d){
