@@ -7,7 +7,6 @@ import {autocomplete} from "./searchBar"
 import {companies} from "./companies.js"
 
 loadPolicy("example_policies/2019B.html");
-//app();
 getEvents();
 statsMain();
 autocomplete(document.getElementById("companyInput"), companies)

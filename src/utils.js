@@ -31,18 +31,23 @@ function addSelections(data){
 }
 
 // Code modified from https://www.w3schools.com/howto/howto_html_include.asp
-function loadPolicy(file){
+// function loadPolicy(file){
+//     let elmnt = document.getElementById("documentReader");
+//     let xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//       if (this.readyState == 4) {
+//         if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+//       }
+//       return;
+//     }
+//     xhttp.open("GET", file, true);
+//     xhttp.send();
+//     return;
+// }
+
+function loadPolicy(version){
     let elmnt = document.getElementById("documentReader");
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4) {
-        if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-      }
-      return;
-    }
-    xhttp.open("GET", file, true);
-    xhttp.send();
-    return;
+    elmnt.innerHTML = policyHTML;
 }
 
 export{

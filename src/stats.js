@@ -22,6 +22,8 @@ window.addEventListener('resize', function() {
   });
 
 let data = [];
+
+let fields = ["ReadingTime", "FleschScore", "SmogScore", "LexiconCount", "SentenceCount"];
 let field2label = {
 	"ReadingTime":"Reading Time in Seconds",
 	"FleschScore":"Flesch Reading Score",
@@ -53,14 +55,15 @@ async function statsMain(){
 }
 
 async function getData(){
-	await d3.csv('facebook_data.csv').then(d => {
-		data = d;
-	}) 
+	// await d3.csv('facebook_data.csv').then(d => {
+	// 	data = d;
+	// }) 
+	data = policyStats;
 }
 
 function prepareSelector(){
     let selector = document.getElementById("fieldSelect");
-	data.columns.slice(2).forEach(el => {
+	fields.forEach(el => {
 		let option = document.createElement("option");
 		option.setAttribute("value", el);
 		option.innerHTML = el;
@@ -140,18 +143,15 @@ function getStats(){
 		.on('mouseout', hideToolTip)
 		.on('click', updatePolicy)  
 		
-	d3.csv("testURLs.csv").then(data =>{
-		config.svg
-			.selectAll('event_triangle')
-			.data(data)
-			.enter()
-			.append('path')
-			.attr("d", d3.symbol().type(d3.symbolTriangle))
-			.attr('fill', 'red')
-			.attr("transform", d=> `translate(${getXCoord(d)}, ${getYCoord(d)})`)
-			.on('mouseover', showEventTip)
-			.on('mouseout', hideToolTip)
-	});
+	config.svg.selectAll('event_triangle')
+		.data(events)
+		.enter()
+		.append('path')
+		.attr("d", d3.symbol().type(d3.symbolTriangle))
+		.attr('fill', 'red')
+		.attr("transform", d=> `translate(${getXCoord(d)}, ${getYCoord(d)})`)
+		.on('mouseover', showEventTip)
+		.on('mouseout', hideToolTip);
 
 	// Update the plain text description to reflect the selected field
 	let descField = document.getElementById("fieldDesc");
@@ -191,7 +191,7 @@ function showPolicyTip(ev, d){
 }
 
 function showEventTip(ev, d){
-	let date = (Number(d.Month)+1) + "/" + d.Day + "/" + d.Year.substring(2);
+	let date = (Number(d.Month)+1) + "/" + d.Day + "/" + d.Year.toString().substring(2);
 	let html = "<div>" + date + "</div>";
 	showToolTip(ev, html);
 }
