@@ -1,5 +1,5 @@
 
-import * as d3 from 'd3';
+import * as d3 from 'https://unpkg.com/d3?module';
 
 import {loadPolicy} from "./policyselector.js";
 
@@ -8,8 +8,9 @@ const xScale = d3.scaleTime()
 	.domain([new Date("2005-01-01"), new Date("2020-01-01")])
 	.range([0, width])
 
-function viewerApp(dates) {
+function viewerApp() {
 
+	/*
 	dates.then( data => {
 
 		addSelections(data);
@@ -28,6 +29,7 @@ function viewerApp(dates) {
 			.on('mouseout', hideEventDate)
 			.on('click', updatePolicy)
 	})	
+	*/
 }
 
 function updatePolicy(ev, d){
