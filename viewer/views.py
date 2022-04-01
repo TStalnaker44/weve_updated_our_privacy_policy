@@ -6,6 +6,8 @@ from django.template import loader
 from .models import Sites
 from .models import PolicySnapshots
 
+from .forms import SnapshotForm
+
 import markdown
 
 import logging
@@ -32,12 +34,15 @@ def index(request):
         snapshots = PolicySnapshots.objects.filter(site=38056).order_by('-year', '-phase') 
 
         #If the user requested a specific snapshot, get it
-        if "versions" in request.GET:
-            snapshot = PolicySnapshots.objects.get(pk=request.GET["versions"])
+        if "snapshot" in request.GET:
+            snapshot = PolicySnapshots.objects.get(pk=request.GET["snapshot"])
         #Otherwise, pick the first snapshot in the list, i.e. the most recent one
         else:
             snapshot = snapshots[0]
         policy_text_raw = snapshot.policy_text.policy_text
+
+        kwargs = {'snapshot': [(i.id, str(i.year) + " " + str(i.phase)) for i in snapshots], 'selected': snapshot.id}
+        form = SnapshotForm(**kwargs)
 
         #Convert the markdown text to html
         policy_text_html = markdown.markdown(policy_text_raw)
@@ -45,8 +50,7 @@ def index(request):
         template = loader.get_template('viewer/index.html')
         context = {
             'domain': domain,
-            'snapshots': snapshots,
-            'selected_id': snapshot.id,
+            'form': form,
             'policy_text_html': policy_text_html
         }
         return HttpResponse(template.render(context, request))

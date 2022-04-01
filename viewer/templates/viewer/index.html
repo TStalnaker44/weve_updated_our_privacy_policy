@@ -20,14 +20,8 @@
     
     <div id="visualization">
         <div class="card-header" style="text-align: center;">
-            <form>
-                <select name="versions" id="versionSelect" onchange="this.form.submit()">
-                    {% for snapshot in snapshots %}
-                        <option value="{{ snapshot.id }}" {% if selected_id == snapshot.id %}selected{% endif %}>
-                            {{ snapshot.year }} {{ snapshot.phase }}
-                        </option>
-                    {% endfor %}
-                </select>
+            <form id="versionSelect">
+                {{ form }}
             </form>
             <h2 id="company">
                 {% if domain %}
