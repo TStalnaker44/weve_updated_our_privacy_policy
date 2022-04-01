@@ -16,16 +16,24 @@
         
         <p>The visual styling of this tool is still in flux and its functionality is still being developed.  
             Being a work in progress, this tool will continue to undergo changes.</p>
-        {% if fb_domain %}
-            <p> {{ fb_domain.domain }}</p>
-        {% endif %}
     </div>
     
     <div id="visualization">
         <div class="card-header" style="text-align: center;">
-            <select name="versions" id="versionSelect">
-            </select>
-            <h2 id="company">Facebook</h2>
+            <form>
+                <select name="versions" id="versionSelect" onchange="this.form.submit()">
+                    {% for snapshot in snapshots %}
+                        <option value="{{ snapshot.id }}" {% if selected_id == snapshot.id %}selected{% endif %}>
+                            {{ snapshot.year }} {{ snapshot.phase }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+            <h2 id="company">
+                {% if domain %}
+                    {{ domain.domain }}
+                {% endif %}
+            </h2>
         </div>
         <div id="middle">
         <div id="documentReader">
