@@ -130,14 +130,36 @@ h1{
     margin-right: auto;
 }
 
-#versionSelect > select, #fieldSelect{
+#companyDiv{
+    text-align: center;
+    width: 50%;
+    float: left;
+}
+
+#prevChanges{
+    text-align: center;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top:1px solid rgba(0,0,0,.125);
+}
+
+#versionSelect{
+    text-align: center;
+    color: darkslategrey;
+    border-color:rgba(0, 0, 0, 0.2);
     float: right;
     width: 25%;
+}
+
+#fieldSelect{
     text-align: center;
     color: darkslategrey;
     border-color:rgba(0, 0, 0, 0.2);
     max-width: 200px;
+    float: right;
+    width: 25%;
 }
+
 
 #eventHover{
     background: #fff;
@@ -150,18 +172,18 @@ h1{
     border-radius: 5px;
 }
 
-.addition{
+ins{
     border-radius: 5px;
     background-color: rgba(7, 204, 7, 0.5);
-    padding-left: 5px;
-    padding-right: 5px;
+    /*padding-left: 5px;
+    padding-right: 5px;*/
 }
 
-.deletion{
+del{
     border-radius: 5px;
     background-color: rgba(204, 7, 7, 0.5);
-    padding-left: 5px;
-    padding-right: 5px;
+    /*padding-left: 5px;
+    padding-right: 5px;*/
 }
 
 .replacement{
@@ -169,4 +191,14 @@ h1{
     background-color: rgba(7, 125, 204, 0.5);
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.row{
+    width: 100%;
+}
+
+.row:after{
+    /*content: "";*/
+    /*display: table;*/
+    /*clear: both;*/
 }

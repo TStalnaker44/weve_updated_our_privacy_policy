@@ -6,3 +6,9 @@ tzdata==2021.5
 Markdown==3.3.6
 textstat==0.7.3
 django-npm==1.0.0
+sympy==1.10.1
+mpmath==1.2.1
+lxml==4.8.0
+beautifulsoup4==4.11.0
+bs4==0.0.1
+soupsieve==2.3.2

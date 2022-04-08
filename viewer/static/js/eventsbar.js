@@ -1,7 +1,5 @@
 import * as d3 from 'https://unpkg.com/d3?module';
 
-import {hideEventDate, xScale} from "./timeline.js"
-
 const numToMon = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
 
 function addEvent(event){
@@ -54,31 +52,9 @@ function addEventToSideBar(event){
 }
 
 function getEvents(){
-	d3.csv("testURLs.csv").then(data =>{
-		data.forEach(element => {
+		events.forEach(element => {
 			addEvent(element);
 		});
-    d3.select('svg')
-			.selectAll('event_circle')
-			.data(data)
-			.enter()
-			.append('circle')
-			.attr('r', 5)
-			.attr('fill', 'red')
-			.attr('cx', d => xScale(new Date(Number(d.Year), Number(d.Month), Number(d.Day))))
-			.attr('cy', 10)
-			.on('mouseover', showEventDate)
-			.on('mouseout', hideEventDate)
-	});
-}
-
-function showEventDate(ev, d){
-	let hover = document.getElementById('eventHover')
-	hover.style.display = 'block';
-	hover.style.left = ev.pageX + 2 + "px";
-	hover.style.top = ev.pageY + 2 + "px";
-	let date = (Number(d.Month)+1) + "/" + d.Day + "/" + d.Year.substring(2)
-	hover.innerHTML = "<div>" + date + "</div>";
 }
 
 export{
